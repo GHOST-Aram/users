@@ -1,8 +1,7 @@
 import { HttpResponse} from "../z-library/HTTP/http-response";
 import { Controllable } from "../z-library/bases/controllable";
-import { Response, Request } from "express";
+import { Response, Request, NextFunction } from "express";
 import { UsersDAL } from "../data-access/data-access";
-import { NextFunction } from "connect";
 import { User } from "../data-access/model";
 
 export class UsersController extends HttpResponse implements Controllable{
