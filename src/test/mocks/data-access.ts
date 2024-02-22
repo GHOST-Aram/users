@@ -5,20 +5,20 @@ import {
     UserModel
 } from "../../data-access/model"
 import { jest } from "@jest/globals"
+import { UsersDAL as UsersDataAccess } from "../../data-access/data-access"
 
 const ID_OF_EXISTING_DOCUMENT = '64c9e4f2df7cc072af2ac9e4'
 
-export class UsersDAL{
-    public Model: UserModel
-
+export class UsersDAL extends UsersDataAccess{
+    
     constructor(model: UserModel){
-        this.Model= model
+        super(model)
     }
     public createNew = jest.fn(
 
         async(userData: User): Promise<HydratedUserDoc> =>{
 
-            const mockUser = new this.Model(userData)  
+            const mockUser = new this.model(userData)  
             return mockUser
         }
     )
@@ -28,7 +28,7 @@ export class UsersDAL{
         async(userID: string): Promise<HydratedUserDoc | null> =>{
 
             if(userID === ID_OF_EXISTING_DOCUMENT){
-                const mockFoundUser = new this.Model({
+                const mockFoundUser = new this.model({
                     last_name: 'John',
                     first_name: 'Does',
                     email: 'johndoe@gmail.com'
@@ -48,7 +48,7 @@ export class UsersDAL{
 
             if(email === existingDocumentEmail){
 
-                const mockDocumentWithExistingEmail =  new this.Model({
+                const mockDocumentWithExistingEmail =  new this.model({
                     last_name: 'John',
                     first_name: 'Does',
                     email: 'existingEmail@gmail.com'
@@ -75,7 +75,7 @@ export class UsersDAL{
 
         let userCount = 0
         while(userCount < limit){
-            mockUsers.push(new this.Model({
+            mockUsers.push(new this.model({
                 first_name: 'John',
                 last_name: 'Doe',
                 email: 'johnDoes@gmail.com'
@@ -92,7 +92,7 @@ export class UsersDAL{
         async(userId: string): Promise<HydratedUserDoc | null> =>{
 
             if(userId === ID_OF_EXISTING_DOCUMENT){
-                const mockDeletedUserDoc =  new this.Model({
+                const mockDeletedUserDoc =  new this.model({
                     first_name: 'John', 
                     last_name: 'Doe',
                     email: 'johndoe@gmail.com'
@@ -109,7 +109,7 @@ export class UsersDAL{
         async(userId: string): Promise<HydratedUserDoc | null> =>{
 
             if(userId === ID_OF_EXISTING_DOCUMENT){
-                const mockUpdatedUserDoc =  new this.Model({
+                const mockUpdatedUserDoc =  new this.model({
                     first_name: 'John', 
                     last_name: 'Doe',
                     email: 'johndoe@gmail.com'
