@@ -23,7 +23,7 @@ export const routesWrapper = (
     )
     router.get('/:id',
         authenticator.authenticate(), 
-        validator.validateReferenceId('id'),
+        validator.validateReferenceId('id', { required: true }),
         validator.handleValidationErrors,
         controller.getOne
     )
@@ -31,7 +31,7 @@ export const routesWrapper = (
     router.put('/', controller.respondWithMethodNotAllowed)
     router.put('/:id', 
         authenticator.authenticate(),
-        validator.validateReferenceId('id'),
+        validator.validateReferenceId('id', { required: true }),
         middlewear.userValidators, 
         validator.handleValidationErrors,
         controller.updateOne
@@ -40,7 +40,7 @@ export const routesWrapper = (
     router.patch('/', controller.respondWithMethodNotAllowed)
     router.patch('/:id', 
         authenticator.authenticate(),
-        validator.validateReferenceId('id'),
+        validator.validateReferenceId('id', { required: true }),
         middlewear.patchValidators, 
         validator.handleValidationErrors,
         controller.modifyOne
@@ -50,7 +50,7 @@ export const routesWrapper = (
     router.delete('/:id', 
         authenticator.authenticate(),
         authenticator.allowAdminUser,
-        validator.validateReferenceId('id'),
+        validator.validateReferenceId('id', { required: true }),
         validator.handleValidationErrors,
         controller.deleteOne
     )
