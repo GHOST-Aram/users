@@ -6,7 +6,6 @@ export class Connection {
 
     constructor(intialDbUri: string){
         this.initialConnection = mongoose.createConnection(intialDbUri)
-
         
         this.initialConnection.on('error', (error) => {
             if(error){
@@ -21,7 +20,6 @@ export class Connection {
         this.initialConnection.on('connected', () => {
             console.log('Application Connected to Database')
         })
-        
     }
 
     public getInitial = (): mongoose.Connection =>{
